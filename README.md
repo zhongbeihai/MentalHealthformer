@@ -12,6 +12,7 @@ This project focuses on analyzing a mental health dataset and training machine l
     ├── train.csv                         # Raw training dataset
     ├── test.csv                          # Raw test dataset
 ├── EDA.ipynb                          # Data analysis and visualization
+├── transformer.ipynb                  # Transformer model
 ├── README.md                          # Documentation
 ```
 ## Requirements
