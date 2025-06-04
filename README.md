@@ -69,3 +69,12 @@ Categorical Embedding        Numerical Embedding
 - **Feed-Forward layer** plays function like kernel method in SVM
 - Eventually, a **classification head** layer was used to output layer which actually a MLP
 
+## Measure model performance
+
+| **Models**           | **Accuracy** | **Precision** | **Recall** | **F1**   | **AUC**   |
+|----------------------|--------------|---------------|------------|---------|----------|
+| **Transformer**      | **0.9766**   | **0.9438**    | **0.9231** | **0.9333** | **0.9966** |
+| Logistic Regression  | 0.8813       | 0.9137        | 0.9052     | 0.9119  | 0.9212   |
+| SVM                  | 0.9247       | 0.9238        | 0.8991     | 0.9452  | 0.9235   |
+| XGBoost              | 0.9446       | 0.9401        | 0.9130     | 0.9477  | 0.9392   |
+| CNN                  | 0.9301       | 0.9359        | 0.9168     | 0.9349  | 0.9394   |
