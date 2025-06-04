@@ -13,6 +13,7 @@ This project focuses on analyzing a mental health dataset and training machine l
     ├── test.csv                          # Raw test dataset
 ├── EDA.ipynb                          # Data analysis and visualization
 ├── transformer.ipynb                  # Transformer model
+├── comparison.ipynb                   # train machine learning model used for caparison    
 ├── README.md                          # Documentation
 ```
 ## Requirements
@@ -36,13 +37,35 @@ Or via `conda`:
 conda install -c conda-forge numpy pandas scikit-learn catboost xgboost matplotlib seaborn
 ```
 
-## Installation and Model Details
-
-
-
-
-## Notes
+## TabTransformer Model Structure
+```
+Categorical Embedding        Numerical Embedding
+        │                             │
+        └────┬──── Sequence ────┬─────┘
+             │            Positional Encoding
+             ▼
+     ┌───────────────────────────────┐
+     │     Transformer Encoder Cell  │  (can be stacked)
+     │  ┌──────────────────────────┐ │
+     │  │ Multi-Head Attention     │ │
+     │  ├──────────────────────────┤ │
+     │  │ Add & Norm               │ │
+     │  ├──────────────────────────┤ │
+     │  │ Feed-Forward             │ │
+     │  ├──────────────────────────┤ │
+     │  │ Add & Norm               │ │
+     │  └──────────────────────────┘ │
+     └───────────────────────────────┘
+                   │
+           Sequence Pooling
+                   │
+           Classification Head
+```
 - The scripts assume `train.csv` and `test.csv` are available in the working directory.
-- The dataset includes categorical and numerical features, which are handled using different preprocessing techniques.
+- The dataset includes **categorical and numerical features**, which are handled using different preprocessing techniques. Categorical features are converted to **dense embeddings** at first and concatenated with numerical embeddings which have the same dimension.
+- The Sequence is enhanced by **Positional Encoding** to capture the relative place of different features.
+- Then it goes into transformer encoder. **Multi-head Attention** implements self-attention mechanism, whcih can automatically learn relative importance and high order interaction between features, so that it doesn't require manual feature enginnering.
+- **Residual connection and normalization layer** are incorporated to make the model more stable
+- **Feed-Forward layer** plays function like kernel method in SVM
+- Eventually, a **classification head** layer was used to output layer which actually a MLP
 
-If you encounter any issues, ensure all dependencies are installed and that the input files are correctly formatted.
